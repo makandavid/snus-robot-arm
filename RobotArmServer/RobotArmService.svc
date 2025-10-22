@@ -1,1 +1,1 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" Service="RobotArmServer.RobotArmService" CodeBehind="RobotArmService.svc.cs" %>
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="RobotArmServer.Services.RobotArmService" CodeBehind="RobotArmService.svc.cs" %>
