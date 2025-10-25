@@ -4,7 +4,7 @@
     {
         public int X { get; private set; } = 2;
         public int Y { get; private set; } = 2;
-        public int Rotation { get; private set; } = 0;
+        public int Angle { get; private set; } = 0;
 
         public bool MoveLeft() => TryMove(-1, 0);
         public bool MoveRight() => TryMove(1, 0);
@@ -12,7 +12,7 @@
         public bool MoveDown() => TryMove(0, 2);
         public bool Rotate()
         {
-            Rotation = (Rotation + 90) % 360;
+            Angle = (Angle + 90) % 360;
             return true;
         }
 
@@ -29,6 +29,6 @@
             return true;
         }
 
-        public override string ToString() => $"Position=({X},{Y}), Rotation={Rotation}°";
+        public override string ToString() => $"Position=({X},{Y}), Rotation={Angle}°";
     }
 }
