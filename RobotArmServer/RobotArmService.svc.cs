@@ -1,18 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.Text;
-
-namespace RobotArmServer
+﻿namespace RobotArmServer
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "RobotArmService" in code, svc and config file together.
-    // NOTE: In order to launch WCF Test Client for testing this service, please select RobotArmService.svc or RobotArmService.svc.cs at the Solution Explorer and start debugging.
-    public class RobotArmService : IRobotArmService
+    public class RobotArmServiceHost
     {
-        public void DoWork()
-        {
-        }
+        public class RobotArmService : Services.RobotArmService { }
     }
 }
