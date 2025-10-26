@@ -70,21 +70,25 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\appdata.db" />
+    <Content Include="App_Data\log.txt" />
     <Content Include="RobotArmService.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\DatabaseHelper.cs" />
+    <Compile Include="Models\CommandRequest.cs" />
+    <Compile Include="Models\CommandResult.cs" />
     <Compile Include="Models\RobotArm.cs" />
+    <Compile Include="Models\RobotArmState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RobotArmService.svc.cs">
       <DependentUpon>RobotArmService.svc</DependentUpon>
     </Compile>
+    <Compile Include="Services\IRobotArmCallback.cs" />
     <Compile Include="Services\IRobotArmService.cs" />
     <Compile Include="Services\RobotArmService.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Compile Include="Services\SessionManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="libman.json" />
