@@ -1,6 +1,6 @@
-﻿using System.ServiceModel;
+﻿using RobotArmClient.RobotArmService;
+using System.ServiceModel;
 using System.Text;
-using RobotArmClient.RobotArmService;
 
 namespace RobotArmClient
 {
@@ -16,6 +16,7 @@ namespace RobotArmClient
         {
             Console.InputEncoding = Encoding.UTF8;
             Console.OutputEncoding = Encoding.UTF8;
+
             Console.WriteLine("Select Client Type:");
             Console.WriteLine("1 - Client1 (All permissions, highest priority)");
             Console.WriteLine("2 - Client2 (Movement only)");
@@ -49,19 +50,15 @@ namespace RobotArmClient
             try
             {
                 var instanceContext = new InstanceContext(new Program());
-
                 var binding = new WSDualHttpBinding();
                 var address = new EndpointAddress("http://localhost:54319/RobotArmService.svc");
-                var factory =
-                    new DuplexChannelFactory<IRobotArmService>(instanceContext, binding,
-                        address);
+                var factory = new DuplexChannelFactory<IRobotArmService>(instanceContext, binding, address);
                 var client = factory.CreateChannel();
 
                 ((IClientChannel)client).Open();
 
                 Console.WriteLine($"\nConnecting as {_clientName}...");
                 var response = client.RegisterClientAsync(_clientName).GetAwaiter().GetResult();
-
                 if (response.StartsWith("ERROR"))
                 {
                     Console.WriteLine($"Registration failed: {response}");
@@ -94,7 +91,16 @@ namespace RobotArmClient
 
                     try
                     {
-                        var commandResult = client.ExecuteCommandAsync(_clientName, command).GetAwaiter().GetResult();
+                        // Encrypt the command before sending
+                        var encryptedCommand = RsaEncryptionHelper.Encrypt(command); // returns Base64 string
+                        if (string.IsNullOrEmpty(encryptedCommand))
+                        {
+                            Console.WriteLine("Encryption failed!");
+                            continue;
+                        }
+
+
+                        var commandResult = client.ExecuteCommandAsync(_clientName, encryptedCommand).GetAwaiter().GetResult();
                         Console.WriteLine($"\nServer response: {commandResult.ResultMessage}");
                         if (commandResult.State != null)
                         {

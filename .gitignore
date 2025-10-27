@@ -137,3 +137,6 @@ $RECYCLE.BIN/
 _NCrunch*
 
 .idea
+
+RobotArmServer/publicKey.xml
+RobotArmServer/privateKey.xml

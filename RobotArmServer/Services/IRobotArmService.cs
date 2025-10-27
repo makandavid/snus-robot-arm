@@ -1,6 +1,6 @@
-﻿using System.ServiceModel;
+﻿using RobotArmServer.Models;
+using System.ServiceModel;
 using System.Threading.Tasks;
-using RobotArmServer.Models;
 
 namespace RobotArmServer.Services
 {
@@ -14,7 +14,7 @@ namespace RobotArmServer.Services
         string UnregisterClient(string clientName);
 
         [OperationContract]
-        Task<CommandResult> ExecuteCommand(string clientName, string command);
+        Task<CommandResult> ExecuteCommand(string clientName, string encryptedCommand);
 
         [OperationContract]
         RobotArmState GetCurrentState();
