@@ -15,7 +15,7 @@ namespace RobotArmServer.Services
         private readonly DatabaseHelper _dbHelper = new();
         private readonly RobotArm _arm = new();
         private readonly object _armLock = new();
-        private readonly BlockingCollection<CommandRequest> _requests = new();
+        private readonly CommandQueue _requests = new();
         private readonly ConcurrentDictionary<string, IRobotArmCallback> _callbacks = new();
         private readonly SessionManager _sessionManager = new();
 
@@ -117,7 +117,7 @@ namespace RobotArmServer.Services
                 CompletionSource = tcs
             };
 
-            _requests.Add(request);
+            _requests.Enqueue(request);
             Debug.WriteLine($"Command queued: client={clientName}, cmd={command}, queue size={_requests.Count}");
 
             return tcs.Task;
@@ -139,7 +139,7 @@ namespace RobotArmServer.Services
                 try
                 {
                     Debug.WriteLine("Waiting for command...");
-                    var request = _requests.Take(); // Blocking call
+                    var request = _requests.Dequeue(); // Blocking call
                     Debug.WriteLine($"Dequeued request: client={request.ClientName}, cmd={request.Command}");
 
                     string resultMessage;

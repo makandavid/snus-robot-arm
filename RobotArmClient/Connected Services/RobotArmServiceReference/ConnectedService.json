@@ -8,7 +8,7 @@
     "namespaceMappings": [
       "*, RobotArmClient.RobotArmService"
     ],
-    "outputFile": "Reference.cs",
+    "outputFile": "Reference",
     "targetFramework": "net48",
     "typeReuseMode": "All"
   }

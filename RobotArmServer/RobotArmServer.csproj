@@ -85,6 +85,7 @@
     <Compile Include="RobotArmService.svc.cs">
       <DependentUpon>RobotArmService.svc</DependentUpon>
     </Compile>
+    <Compile Include="Services\CommandQueue.cs" />
     <Compile Include="Services\IRobotArmCallback.cs" />
     <Compile Include="Services\IRobotArmService.cs" />
     <Compile Include="Services\RobotArmService.cs" />
