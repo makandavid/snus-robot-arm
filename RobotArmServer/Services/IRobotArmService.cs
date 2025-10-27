@@ -1,11 +1,22 @@
 ﻿using System.ServiceModel;
+using System.Threading.Tasks;
+using RobotArmServer.Models;
 
 namespace RobotArmServer.Services
 {
-    [ServiceContract]
+    [ServiceContract(CallbackContract = typeof(IRobotArmCallback))]
     public interface IRobotArmService
     {
         [OperationContract]
-        string ExecuteCommand(string clientName, string command);
+        string RegisterClient(string clientName);
+
+        [OperationContract]
+        string UnregisterClient(string clientName);
+
+        [OperationContract]
+        Task<CommandResult> ExecuteCommand(string clientName, string command);
+
+        [OperationContract]
+        RobotArmState GetCurrentState();
     }
 }

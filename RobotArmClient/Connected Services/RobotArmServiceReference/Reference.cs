@@ -7,96 +7,159 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RobotArmServiceReference
+namespace RobotArmClient.RobotArmService
 {
+    using System.Runtime.Serialization;
     
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.2.0-preview1.23462.5")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="RobotArmServiceReference.IRobotArmService")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CommandResult", Namespace="http://schemas.datacontract.org/2004/07/RobotArmServer.Models")]
+    public partial class CommandResult : object
+    {
+        
+        private string ResultMessageField;
+        
+        private RobotArmClient.RobotArmService.RobotArmState StateField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ResultMessage
+        {
+            get
+            {
+                return this.ResultMessageField;
+            }
+            set
+            {
+                this.ResultMessageField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public RobotArmClient.RobotArmService.RobotArmState State
+        {
+            get
+            {
+                return this.StateField;
+            }
+            set
+            {
+                this.StateField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="RobotArmState", Namespace="http://schemas.datacontract.org/2004/07/RobotArmServer.Models")]
+    public partial class RobotArmState : object
+    {
+        
+        private int AngleField;
+        
+        private int XField;
+        
+        private int YField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Angle
+        {
+            get
+            {
+                return this.AngleField;
+            }
+            set
+            {
+                this.AngleField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int X
+        {
+            get
+            {
+                return this.XField;
+            }
+            set
+            {
+                this.XField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Y
+        {
+            get
+            {
+                return this.YField;
+            }
+            set
+            {
+                this.YField = value;
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="RobotArmClient.RobotArmService.IRobotArmService", CallbackContract=typeof(RobotArmClient.RobotArmService.IRobotArmServiceCallback))]
     public interface IRobotArmService
     {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRobotArmService/Test", ReplyAction="http://tempuri.org/IRobotArmService/TestResponse")]
-        string Test();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRobotArmService/RegisterClient", ReplyAction="http://tempuri.org/IRobotArmService/RegisterClientResponse")]
+        System.Threading.Tasks.Task<string> RegisterClientAsync(string clientName);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRobotArmService/Test", ReplyAction="http://tempuri.org/IRobotArmService/TestResponse")]
-        System.Threading.Tasks.Task<string> TestAsync();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRobotArmService/ExecuteCommand", ReplyAction="http://tempuri.org/IRobotArmService/ExecuteCommandResponse")]
-        string ExecuteCommand(string clientName, string command);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRobotArmService/UnregisterClient", ReplyAction="http://tempuri.org/IRobotArmService/UnregisterClientResponse")]
+        System.Threading.Tasks.Task<string> UnregisterClientAsync(string clientName);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRobotArmService/ExecuteCommand", ReplyAction="http://tempuri.org/IRobotArmService/ExecuteCommandResponse")]
-        System.Threading.Tasks.Task<string> ExecuteCommandAsync(string clientName, string command);
+        System.Threading.Tasks.Task<RobotArmClient.RobotArmService.CommandResult> ExecuteCommandAsync(string clientName, string command);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRobotArmService/GetCurrentState", ReplyAction="http://tempuri.org/IRobotArmService/GetCurrentStateResponse")]
+        System.Threading.Tasks.Task<RobotArmClient.RobotArmService.RobotArmState> GetCurrentStateAsync();
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.2.0-preview1.23462.5")]
-    public interface IRobotArmServiceChannel : RobotArmServiceReference.IRobotArmService, System.ServiceModel.IClientChannel
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    public interface IRobotArmServiceCallback
+    {
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IRobotArmService/OnStateChanged")]
+        void OnStateChanged(RobotArmClient.RobotArmService.RobotArmState state);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    public interface IRobotArmServiceChannel : RobotArmClient.RobotArmService.IRobotArmService, System.ServiceModel.IClientChannel
     {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.2.0-preview1.23462.5")]
-    public partial class RobotArmServiceClient : System.ServiceModel.ClientBase<RobotArmServiceReference.IRobotArmService>, RobotArmServiceReference.IRobotArmService
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    public partial class RobotArmServiceClientBase : System.ServiceModel.DuplexClientBase<RobotArmClient.RobotArmService.IRobotArmService>, RobotArmClient.RobotArmService.IRobotArmService
     {
         
-        /// <summary>
-        /// Implement this partial method to configure the service endpoint.
-        /// </summary>
-        /// <param name="serviceEndpoint">The endpoint to configure</param>
-        /// <param name="clientCredentials">The client credentials</param>
-        static partial void ConfigureEndpoint(System.ServiceModel.Description.ServiceEndpoint serviceEndpoint, System.ServiceModel.Description.ClientCredentials clientCredentials);
-        
-        public RobotArmServiceClient() : 
-                base(RobotArmServiceClient.GetDefaultBinding(), RobotArmServiceClient.GetDefaultEndpointAddress())
-        {
-            this.Endpoint.Name = EndpointConfiguration.BasicHttpBinding_IRobotArmService.ToString();
-            ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
-        }
-        
-        public RobotArmServiceClient(EndpointConfiguration endpointConfiguration) : 
-                base(RobotArmServiceClient.GetBindingForEndpoint(endpointConfiguration), RobotArmServiceClient.GetEndpointAddress(endpointConfiguration))
-        {
-            this.Endpoint.Name = endpointConfiguration.ToString();
-            ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
-        }
-        
-        public RobotArmServiceClient(EndpointConfiguration endpointConfiguration, string remoteAddress) : 
-                base(RobotArmServiceClient.GetBindingForEndpoint(endpointConfiguration), new System.ServiceModel.EndpointAddress(remoteAddress))
-        {
-            this.Endpoint.Name = endpointConfiguration.ToString();
-            ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
-        }
-        
-        public RobotArmServiceClient(EndpointConfiguration endpointConfiguration, System.ServiceModel.EndpointAddress remoteAddress) : 
-                base(RobotArmServiceClient.GetBindingForEndpoint(endpointConfiguration), remoteAddress)
-        {
-            this.Endpoint.Name = endpointConfiguration.ToString();
-            ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
-        }
-        
-        public RobotArmServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
-                base(binding, remoteAddress)
+        public RobotArmServiceClientBase(System.ServiceModel.InstanceContext callbackInstance, System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, binding, remoteAddress)
         {
         }
         
-        public string Test()
+        public System.Threading.Tasks.Task<string> RegisterClientAsync(string clientName)
         {
-            return base.Channel.Test();
+            return base.Channel.RegisterClientAsync(clientName);
         }
         
-        public System.Threading.Tasks.Task<string> TestAsync()
+        public System.Threading.Tasks.Task<string> UnregisterClientAsync(string clientName)
         {
-            return base.Channel.TestAsync();
+            return base.Channel.UnregisterClientAsync(clientName);
         }
         
-        public string ExecuteCommand(string clientName, string command)
-        {
-            return base.Channel.ExecuteCommand(clientName, command);
-        }
-        
-        public System.Threading.Tasks.Task<string> ExecuteCommandAsync(string clientName, string command)
+        public System.Threading.Tasks.Task<RobotArmClient.RobotArmService.CommandResult> ExecuteCommandAsync(string clientName, string command)
         {
             return base.Channel.ExecuteCommandAsync(clientName, command);
+        }
+        
+        public System.Threading.Tasks.Task<RobotArmClient.RobotArmService.RobotArmState> GetCurrentStateAsync()
+        {
+            return base.Channel.GetCurrentStateAsync();
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()
@@ -104,43 +167,73 @@ namespace RobotArmServiceReference
             return System.Threading.Tasks.Task.Factory.FromAsync(((System.ServiceModel.ICommunicationObject)(this)).BeginOpen(null, null), new System.Action<System.IAsyncResult>(((System.ServiceModel.ICommunicationObject)(this)).EndOpen));
         }
         
-        private static System.ServiceModel.Channels.Binding GetBindingForEndpoint(EndpointConfiguration endpointConfiguration)
+        public virtual System.Threading.Tasks.Task CloseAsync()
         {
-            if ((endpointConfiguration == EndpointConfiguration.BasicHttpBinding_IRobotArmService))
+            return System.Threading.Tasks.Task.Factory.FromAsync(((System.ServiceModel.ICommunicationObject)(this)).BeginClose(null, null), new System.Action<System.IAsyncResult>(((System.ServiceModel.ICommunicationObject)(this)).EndClose));
+        }
+    }
+    
+    public class OnStateChangedReceivedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
+    {
+        
+        private object[] results;
+        
+        public OnStateChangedReceivedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState)
+        {
+            this.results = results;
+        }
+        
+        public RobotArmClient.RobotArmService.RobotArmState state
+        {
+            get
             {
-                System.ServiceModel.BasicHttpBinding result = new System.ServiceModel.BasicHttpBinding();
-                result.MaxBufferSize = int.MaxValue;
-                result.ReaderQuotas = System.Xml.XmlDictionaryReaderQuotas.Max;
-                result.MaxReceivedMessageSize = int.MaxValue;
-                result.AllowCookies = true;
-                return result;
+                base.RaiseExceptionIfNecessary();
+                return ((RobotArmClient.RobotArmService.RobotArmState)(this.results[0]));
             }
-            throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
+        }
+    }
+    
+    public partial class RobotArmServiceClient : RobotArmServiceClientBase
+    {
+        
+        public RobotArmServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                this(new RobotArmServiceClientCallback(), binding, remoteAddress)
+        {
         }
         
-        private static System.ServiceModel.EndpointAddress GetEndpointAddress(EndpointConfiguration endpointConfiguration)
+        private RobotArmServiceClient(RobotArmServiceClientCallback callbackImpl, System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(new System.ServiceModel.InstanceContext(callbackImpl), binding, remoteAddress)
         {
-            if ((endpointConfiguration == EndpointConfiguration.BasicHttpBinding_IRobotArmService))
+            callbackImpl.Initialize(this);
+        }
+        
+        public event System.EventHandler<OnStateChangedReceivedEventArgs> OnStateChangedReceived;
+        
+        private void OnOnStateChangedReceived(object state)
+        {
+            if ((this.OnStateChangedReceived != null))
             {
-                return new System.ServiceModel.EndpointAddress("http://localhost:54319/RobotArmService.svc");
+                object[] results = ((object[])(state));
+                this.OnStateChangedReceived(this, new OnStateChangedReceivedEventArgs(results, null, false, null));
             }
-            throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }
         
-        private static System.ServiceModel.Channels.Binding GetDefaultBinding()
-        {
-            return RobotArmServiceClient.GetBindingForEndpoint(EndpointConfiguration.BasicHttpBinding_IRobotArmService);
-        }
-        
-        private static System.ServiceModel.EndpointAddress GetDefaultEndpointAddress()
-        {
-            return RobotArmServiceClient.GetEndpointAddress(EndpointConfiguration.BasicHttpBinding_IRobotArmService);
-        }
-        
-        public enum EndpointConfiguration
+        private class RobotArmServiceClientCallback : object, IRobotArmServiceCallback
         {
             
-            BasicHttpBinding_IRobotArmService,
+            private RobotArmServiceClient proxy;
+            
+            public void Initialize(RobotArmServiceClient proxy)
+            {
+                this.proxy = proxy;
+            }
+            
+            public void OnStateChanged(RobotArmClient.RobotArmService.RobotArmState state)
+            {
+                this.proxy.OnOnStateChangedReceived(new object[] {
+                            state});
+            }
         }
     }
 }
