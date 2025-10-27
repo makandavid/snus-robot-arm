@@ -42,7 +42,7 @@ public static class RsaEncryptionHelper
 
         byte[] bytes = Convert.FromBase64String(cipherTextBase64); // safe now
         using var rsa = RSA.Create();
-        rsa.FromXmlString(PrivateKeyXml); // your loaded private key
+        rsa.FromXmlString(PrivateKeyXml);
         var decryptedBytes = rsa.Decrypt(bytes, RSAEncryptionPadding.Pkcs1);
         return Encoding.UTF8.GetString(decryptedBytes);
     }
