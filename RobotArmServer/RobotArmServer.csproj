@@ -17,10 +17,9 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <TargetFrameworkProfile />
     <LangVersion>9.0</LangVersion>
@@ -89,6 +88,7 @@
     <Compile Include="Services\IRobotArmCallback.cs" />
     <Compile Include="Services\IRobotArmService.cs" />
     <Compile Include="Services\RobotArmService.cs" />
+    <Compile Include="Services\RsaEncryptionHelper.cs" />
     <Compile Include="Services\SessionManager.cs" />
   </ItemGroup>
   <ItemGroup>

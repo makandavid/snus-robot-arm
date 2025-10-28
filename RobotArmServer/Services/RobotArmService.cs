@@ -1,11 +1,11 @@
-﻿using System;
+﻿using RobotArmServer.Data;
+using RobotArmServer.Models;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.ServiceModel;
 using System.Threading.Tasks;
-using RobotArmServer.Data;
-using RobotArmServer.Models;
 
 namespace RobotArmServer.Services
 {
@@ -104,9 +104,18 @@ namespace RobotArmServer.Services
             return "Unregistered";
         }
 
-        public Task<CommandResult> ExecuteCommand(string clientName, string command)
+        public Task<CommandResult> ExecuteCommand(string clientName, string encryptedCommand)
         {
-            Debug.WriteLine($"ExecuteCommand called: client={clientName}, cmd={command}");
+            string command;
+            try
+            {
+                // Decrypt using private key
+                command = RsaEncryptionHelper.Decrypt(encryptedCommand);
+            }
+            catch (Exception ex)
+            {
+                return Task.FromResult(new CommandResult($"Decryption failed: {ex.Message}", null));
+            }
 
             var tcs = new TaskCompletionSource<CommandResult>(TaskCreationOptions.RunContinuationsAsynchronously);
             var request = new CommandRequest
@@ -118,10 +127,10 @@ namespace RobotArmServer.Services
             };
 
             _requests.Enqueue(request);
-            Debug.WriteLine($"Command queued: client={clientName}, cmd={command}, queue size={_requests.Count}");
-
             return tcs.Task;
         }
+
+
 
         public RobotArmState GetCurrentState()
         {

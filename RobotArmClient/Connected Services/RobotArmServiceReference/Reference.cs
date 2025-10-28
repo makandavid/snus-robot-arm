@@ -113,7 +113,7 @@ namespace RobotArmClient.RobotArmService
         System.Threading.Tasks.Task<string> UnregisterClientAsync(string clientName);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRobotArmService/ExecuteCommand", ReplyAction="http://tempuri.org/IRobotArmService/ExecuteCommandResponse")]
-        System.Threading.Tasks.Task<RobotArmClient.RobotArmService.CommandResult> ExecuteCommandAsync(string clientName, string command);
+        System.Threading.Tasks.Task<RobotArmClient.RobotArmService.CommandResult> ExecuteCommandAsync(string clientName, string encryptedCommand);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRobotArmService/GetCurrentState", ReplyAction="http://tempuri.org/IRobotArmService/GetCurrentStateResponse")]
         System.Threading.Tasks.Task<RobotArmClient.RobotArmService.RobotArmState> GetCurrentStateAsync();
@@ -152,9 +152,9 @@ namespace RobotArmClient.RobotArmService
             return base.Channel.UnregisterClientAsync(clientName);
         }
         
-        public System.Threading.Tasks.Task<RobotArmClient.RobotArmService.CommandResult> ExecuteCommandAsync(string clientName, string command)
+        public System.Threading.Tasks.Task<RobotArmClient.RobotArmService.CommandResult> ExecuteCommandAsync(string clientName, string encryptedCommand)
         {
-            return base.Channel.ExecuteCommandAsync(clientName, command);
+            return base.Channel.ExecuteCommandAsync(clientName, encryptedCommand);
         }
         
         public System.Threading.Tasks.Task<RobotArmClient.RobotArmService.RobotArmState> GetCurrentStateAsync()
