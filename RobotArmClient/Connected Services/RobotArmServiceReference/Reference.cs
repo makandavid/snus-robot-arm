@@ -152,9 +152,9 @@ namespace RobotArmClient.RobotArmService
             return base.Channel.UnregisterClientAsync(clientName);
         }
         
-        public System.Threading.Tasks.Task<RobotArmClient.RobotArmService.CommandResult> ExecuteCommandAsync(string clientName, string command)
+        public System.Threading.Tasks.Task<RobotArmClient.RobotArmService.CommandResult> ExecuteCommandAsync(string clientName, string encryptedCommand)
         {
-            return base.Channel.ExecuteCommandAsync(clientName, command);
+            return base.Channel.ExecuteCommandAsync(clientName, encryptedCommand);
         }
         
         public System.Threading.Tasks.Task<RobotArmClient.RobotArmService.RobotArmState> GetCurrentStateAsync()

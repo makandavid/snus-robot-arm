@@ -92,7 +92,7 @@ namespace RobotArmClient
                     try
                     {
                         // Encrypt the command before sending
-                        var encryptedCommand = RsaEncryptionHelper.Encrypt(command); // returns Base64 string
+                        var encryptedCommand = ClientRsaEncryptionHelper.Encrypt(command); // returns Base64 string
                         if (string.IsNullOrEmpty(encryptedCommand))
                         {
                             Console.WriteLine("Encryption failed!");

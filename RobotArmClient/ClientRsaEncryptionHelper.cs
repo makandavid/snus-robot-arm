@@ -1,31 +1,36 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-public static class ClientRsaEncryptionHelper
+namespace RobotArmClient
 {
-    private static readonly string PublicKeyXml;
-
-    static ClientRsaEncryptionHelper()
+    public static class ClientRsaEncryptionHelper
     {
-        try
-        {
-            PublicKeyXml = File.ReadAllText(@"C:\Users\patri\Documents\FTN 6 semestar\Projekti\SNUS\snus-robot-arm\RobotArmServer\publicKey.xml");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("Failed to load server public key: " + ex.Message);
-            throw;
-        }
-    }
+        private static readonly string PublicKeyXml;
 
-    public static string Encrypt(string plainText)
-    {
-        using var rsa = new RSACryptoServiceProvider();
-        rsa.PersistKeyInCsp = false;
+        static ClientRsaEncryptionHelper()
+        {
+            try
+            {
+                // Load keys from predefined locations
+                var baseDir = AppDomain.CurrentDomain.BaseDirectory;
+                PublicKeyXml = File.ReadAllText(Path.Combine(baseDir, "publicKey.xml"));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Failed to load server public key: " + ex.Message);
+                throw;
+            }
+        }
 
-        rsa.FromXmlString(PublicKeyXml);
-        byte[] bytes = Encoding.UTF8.GetBytes(plainText);
-        byte[] encrypted = rsa.Encrypt(bytes, false); // PKCS#1 v1.5 padding
-        return Convert.ToBase64String(encrypted);
+        public static string Encrypt(string plainText)
+        {
+            using var rsa = new RSACryptoServiceProvider();
+            rsa.PersistKeyInCsp = false;
+
+            rsa.FromXmlString(PublicKeyXml);
+            byte[] bytes = Encoding.UTF8.GetBytes(plainText);
+            byte[] encrypted = rsa.Encrypt(bytes, false); // PKCS#1 v1.5 padding
+            return Convert.ToBase64String(encrypted);
+        }
     }
 }
